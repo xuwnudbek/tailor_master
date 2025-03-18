@@ -31,6 +31,15 @@ class HomePage extends StatelessWidget {
               title: Text(
                 '${page['title']}',
               ),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.exit_to_app),
+                  onPressed: () async {
+                    await provider.logout(context);
+                  },
+                ),
+                SizedBox(width: 10),
+              ],
             ),
             body: page['page'],
             bottomNavigationBar: CustomNavbar(),

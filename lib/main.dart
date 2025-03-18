@@ -16,7 +16,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Tailor Master',
+      title: 'Tikuv Master',
       theme: AppTheme.lightTheme,
       home: SplashPage(),
     );

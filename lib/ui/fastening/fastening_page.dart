@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tailor_master/ui/fastening/provider/fastening_provider.dart';
@@ -161,7 +159,7 @@ class FasteningPage extends StatelessWidget {
 
                                       return DropdownMenuItem(
                                         value: group['id'],
-                                        enabled: !beforeUsed,
+                                        // enabled: !beforeUsed,
                                         child: Text(
                                           group?['name'] ?? "Unknown",
                                           style: textTheme.titleSmall?.copyWith(

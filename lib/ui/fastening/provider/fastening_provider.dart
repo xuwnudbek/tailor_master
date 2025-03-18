@@ -73,8 +73,6 @@ class FasteningProvider extends ChangeNotifier {
       ]
     };
 
-    inspect(data);
-
     if (data['data'].isEmpty) {
       CustomSnackbars(context).warning('Guruhlar tanlanmagan');
       return;
