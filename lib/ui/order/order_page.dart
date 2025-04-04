@@ -153,75 +153,73 @@ class OrderPage extends StatelessWidget {
                         ),
                         SizedBox(height: 8),
                         // submodellar
-                        Row(
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            Text.rich(
+                              TextSpan(
+                                text: 'Submodellar:',
+                                style: textTheme.bodyMedium,
+                              ),
+                            ),
+                            Wrap(
+                              spacing: 4,
+                              runSpacing: 4,
                               children: [
-                                Text.rich(
-                                  TextSpan(
-                                    text: 'Submodellar:',
-                                    style: textTheme.bodyMedium,
-                                  ),
-                                ),
-                                Wrap(
-                                  spacing: 4,
-                                  runSpacing: 4,
-                                  children: [
-                                    for (final submodel in order['orderModel']?['submodels'] ?? [])
-                                      Chip(
-                                        padding: EdgeInsets.all(4),
-                                        backgroundColor: AppColors.primary,
-                                        label: Text(
-                                          submodel?['submodel']?['name'] ?? 'Unknown',
-                                          style: textTheme.bodyMedium?.copyWith(
-                                            color: AppColors.light,
-                                          ),
-                                        ),
+                                for (final submodel in order['orderModel']?['submodels'] ?? [])
+                                  Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.primary,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Text(
+                                      submodel?['submodel']?['name'] ?? 'Unknown',
+                                      style: textTheme.bodyMedium?.copyWith(
+                                        color: AppColors.light,
                                       ),
-                                  ],
-                                ),
+                                    ),
+                                  ),
                               ],
                             ),
                           ],
                         ),
                         SizedBox(height: 8),
                         // o'lchamlar
-                        Row(
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            Text.rich(
+                              TextSpan(
+                                text: 'O\'lchamlar:',
+                                style: textTheme.bodyMedium,
+                              ),
+                            ),
+                            Wrap(
+                              spacing: 4,
+                              runSpacing: 4,
                               children: [
-                                Text.rich(
-                                  TextSpan(
-                                    text: 'O\'lchamlar:',
-                                    style: textTheme.bodyMedium,
-                                  ),
-                                ),
-                                Wrap(
-                                  spacing: 4,
-                                  runSpacing: 4,
-                                  children: [
-                                    for (final size in order['orderModel']?['sizes'] ?? [])
-                                      Chip(
-                                        padding: EdgeInsets.all(4),
-                                        backgroundColor: AppColors.primary,
-                                        label: Text.rich(
-                                          TextSpan(
-                                            text: size?['size']?['name'] ?? 'Unknown',
-                                            style: textTheme.bodyMedium?.copyWith(
-                                              color: AppColors.light,
-                                            ),
-                                            children: [
-                                              TextSpan(
-                                                text: ' - ${size['quantity']} ta',
-                                              ),
-                                            ],
-                                          ),
+                                for (final size in order['orderModel']?['sizes'] ?? [])
+                                  Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.primary,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Text.rich(
+                                      TextSpan(
+                                        text: size?['size']?['name'] ?? 'Unknown',
+                                        style: textTheme.bodyMedium?.copyWith(
+                                          color: AppColors.light,
                                         ),
+                                        children: [
+                                          TextSpan(
+                                            text: ' - ${size['quantity']} ta',
+                                          ),
+                                        ],
                                       ),
-                                  ],
-                                ),
+                                    ),
+                                  ),
                               ],
                             ),
                           ],

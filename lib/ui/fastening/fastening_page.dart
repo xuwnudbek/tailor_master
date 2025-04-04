@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tailor_master/services/storage_service.dart';
 import 'package:tailor_master/ui/fastening/provider/fastening_provider.dart';
 import 'package:tailor_master/utils/theme/app_colors.dart';
 import 'package:tailor_master/utils/widgets/custom_dropdown.dart';
@@ -37,37 +38,27 @@ class FasteningPage extends StatelessWidget {
 
                 final order = provider.orders[index];
 
-                // String status = order['status'] == "printing"
-                //     ? "Chop etilmoqda"
-                //     : order['status'] == "cutting"
-                //         ? "Bichuvda"
-                //         : order['status'] == "tailoring"
-                //             ? "Tikuvda"
-                //             : order['status'] == "pending"
-                //                 ? "Kutilmoqda"
-                //                 : "Unknown";
-
                 final expansionController = provider.expansionControllers[index];
                 List submodels = order['orderModel']?['submodels'] ?? [];
 
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: ExpansionTile(
-                    controller: expansionController,
+                    // controller: expansionController,
                     onExpansionChanged: (value) async {
-                      if (!value) {
-                        expansionController.collapse();
-                        return;
-                      }
+                      // if (!value) {
+                      //   expansionController.collapse();
+                      //   return;
+                      // }
 
-                      for (var controller in provider.expansionControllers) {
-                        if (controller != expansionController) {
-                          controller.collapse();
-                        }
-                      }
+                      // for (var controller in provider.expansionControllers) {
+                      //   if (controller != expansionController) {
+                      //     controller.collapse();
+                      //   }
+                      // }
 
-                      provider.prepareFasteningGroups(submodels);
-                      expansionController.expand();
+                      // provider.prepareFasteningGroups(submodels);
+                      // expansionController.expand();
                     },
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -96,7 +87,6 @@ class FasteningPage extends StatelessWidget {
                     expandedAlignment: Alignment.centerLeft,
                     expandedCrossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // submodellar
                       Table(
                         border: TableBorder.all(
                           borderRadius: BorderRadius.circular(4),
@@ -159,7 +149,6 @@ class FasteningPage extends StatelessWidget {
 
                                       return DropdownMenuItem(
                                         value: group['id'],
-                                        // enabled: !beforeUsed,
                                         child: Text(
                                           group?['name'] ?? "Unknown",
                                           style: textTheme.titleSmall?.copyWith(
@@ -183,14 +172,19 @@ class FasteningPage extends StatelessWidget {
                       TextButton(
                         onPressed: () async {
                           if (provider.isUpdating) return;
+                          StorageService.write("active_expansion_order", order['id']);
                           await provider.updateFasteningGroups(context, order['id']);
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            if (provider.isUpdating)
-                              CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation(AppColors.light),
+                            if (provider.isUpdating && StorageService.read("active_expansion_order") == order['id'])
+                              SizedBox.square(
+                                dimension: 24,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  valueColor: AlwaysStoppedAnimation(AppColors.light),
+                                ),
                               )
                             else
                               Text(

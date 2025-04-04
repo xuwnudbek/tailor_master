@@ -9,6 +9,7 @@ void main() async {
   runApp(App());
 }
 
+/// [App] - bu class asosiy klass hisoblanadi.
 class App extends StatelessWidget {
   const App({super.key});
 
